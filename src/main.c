@@ -2,6 +2,7 @@
 
 #include "cpu.c"
 #include "mem.c"
+// #include "ui.c"
 
 
 int main(int argc , char *argv[]){
@@ -27,8 +28,12 @@ int main(int argc , char *argv[]){
         double memUsagePercent = memUsage();
 
         // formatting for proper display
-        printf("\nCPU_USAGE : %lf\n",cpu_usage);
-        printf("\nMEM_USAGE : %lf\n",memUsagePercent);
+        printf("\033[H\033[J");
+        printf("====================================\n");
+        printf("\n******* SysMonkey *******\n");
+        printf("\nCPU_USAGE : %lf %% \n",cpu_usage);
+        printf("\nMEM_USAGE : %lf %% \n",memUsagePercent);
+        fflush(stdout);
 
     }
     return 0;
