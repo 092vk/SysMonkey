@@ -48,25 +48,3 @@ struct Data cpuUsageCal(){
 
     return data;
 }
-
-void cpuUsage(){
-    //print the cpu usage
-    while(1){
-        struct Data data1;
-        struct Data data2;
-        data1 = cpuUsageCal();
-        sleep(1);
-        data2 = cpuUsageCal();
-
-        // calculate the diff
-        unsigned long long sum_delta = data2.Ssum - data1.Ssum;
-        unsigned long long idle_delta = data2.Sidle - data1.Sidle;
-
-        // printf("sum_delta : %llu\n", sum_delta);
-        // printf("idle_delta : %llu\n", idle_delta);
-
-        // calculate the cpu usage
-        double cpu_usage = (1- (double)idle_delta/(double)sum_delta)*100;
-        printf("Cpu_usage = %0.1lf%%\n", cpu_usage);
-    }
-}

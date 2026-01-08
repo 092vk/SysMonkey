@@ -3,13 +3,13 @@
 #include<unistd.h>
 #include<string.h>
 
-struct Data {
+struct DataM {
     unsigned long long memTotal;
     unsigned long long memAva;
 };
 
-struct Data memUsageCal(){
-    struct Data data;
+struct DataM memUsageCal(){
+    struct DataM data;
 
     // read the file /proc/meminfo
     FILE* fptr;
@@ -21,7 +21,7 @@ struct Data memUsageCal(){
         exit(1);
     }
     else{
-        printf("the file was opened successfully\n");
+        // printf("the file was opened successfully\n");
 
         while (fgets(buff,sizeof(buff),fptr)){
             if(strncmp(buff,"MemTotal:", 9) == 0){
@@ -34,8 +34,8 @@ struct Data memUsageCal(){
             if(data.memTotal && data.memAva) break;
         }
         
-        printf("MemTotal : %llu\n", data.memTotal);
-        printf("MemAvil %llu\n", data.memAva);
+        // printf("MemTotal : %llu\n", data.memTotal);
+        // printf("MemAvil %llu\n", data.memAva);
     }
 
     fclose(fptr);
@@ -43,13 +43,10 @@ struct Data memUsageCal(){
     return data;
 }
 
-void memUsage(){
-    // print the mem usage
-    
-        memUsageCal();
-    
-}
-
-void main(){
-    memUsage();
+double memUsage(){
+    struct DataM d1 = memUsageCal();
+    //calculation for percentage
+    double percentMem = 100*(1-(double)d1.memAva/(double)d1.memTotal);
+    // printf("\nPercentage memeory used : %0.2lf%% \n",percentMem);
+    return percentMem;
 }
